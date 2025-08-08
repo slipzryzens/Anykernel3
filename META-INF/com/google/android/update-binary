@@ -576,6 +576,6 @@ if [ "$(file_getprop anykernel.sh do.cleanup)" == 1 ]; then
   cleanup;
 fi;
 
-ui_print " " "Instalasi Kernoll Success, weng Rebbot System 🍌!";
+ui_print " " "SuperRyzenS Kernel Installer Done, Reboot System Now!";
 export PATH="$OLD_PATH";
 unset OLD_PATH OUTFD ZIPFILE;
