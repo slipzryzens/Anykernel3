@@ -537,23 +537,19 @@ if [ $? != 0 -o -z "$(ls bin)" ]; then
   abort "Busybox setup failed. Aborting...";
 fi;
 OLD_PATH="$PATH";
-export PATH="$AKHOME/bin:$AKHOME/tools:$PATH";
+export PATH="$AKHOME/tools:$AKHOME/bin:$PATH";
 
 if [ -f banner ]; then
   ui_printfile banner;
-  ui_print " " " ";
 fi;
 
 KERNEL_STRING="$(file_getprop anykernel.sh kernel.string)";
 ui_print "$KERNEL_STRING";
 if [ -f version ]; then
-  ui_print " ";
   ui_printfile version;
-  ui_print " ";
 fi;
-ui_print " " "AnyKernel3 by osm0sis @ xda-developers" " ";
+ui_print " " "" " ";
 grep -oE 'AK_BASE.*' META-INF/com/google/android/updater-script >&2;
-ui_print " ";
 
 setup_env;
 
@@ -581,6 +577,6 @@ if [ "$(file_getprop anykernel.sh do.cleanup)" == 1 ]; then
   cleanup;
 fi;
 
-ui_print " " "Done!";
+ui_print " " "Kernel Installer Done, Reboot System Now!";
 export PATH="$OLD_PATH";
 unset OLD_PATH OUTFD ZIPFILE;
