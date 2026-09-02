@@ -54,10 +54,12 @@ choose_ebpf() {
         *KEY_VOLUMEDOWN*)
             ui_print "-> Selected: Legacy eBPF"
             patch_cmdline "init.is_legacy_ebpf" "init.is_legacy_ebpf=true"
+            patch_cmdline "init.is_legacy_timestamp" "init.is_legacy_timestamp=true"
             ;;
         *KEY_VOLUMEUP*|*)
             ui_print "-> Selected Latest eBPF"
             patch_cmdline "init.is_legacy_ebpf" "init.is_legacy_ebpf=false"
+            patch_cmdline "init.is_legacy_timestamp" "init.is_legacy_timestamp=false"
             ;;
     esac
 }
