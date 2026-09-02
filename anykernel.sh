@@ -36,5 +36,34 @@ PATCH_VBMETA_FLAG=auto;
 # boot install
 dump_boot;
 
+ui_print " ";
+ui_print "======================================================";
+ui_print "               SELECT COMPATIBILITY MODE               ";
+ui_print "======================================================";
+ui_print "    [Vol UP]   : Latest eBPF (HyperOS & Port ROMs)";
+ui_print "    [Vol DOWN] : Legacy eBPF (MIUI14 / Older ROMs)";
+ui_print "======================================================";
+
+choose_ebpf() {
+    ui_print "-> Waiting 15s for volume key input...";
+    ui_print "-> Default choice in 15s: Latest eBPF";
+    
+    local key=$(timeout 15 getevent -l | grep -m1 -E 'KEY_VOLUMEUP|KEY_VOLUMEDOWN')
+
+    case "$key" in
+        *KEY_VOLUMEDOWN*)
+            ui_print "-> Selected: Legacy eBPF"
+            patch_cmdline "init.is_legacy_ebpf" "init.is_legacy_ebpf=true"
+            ;;
+        *KEY_VOLUMEUP*|*)
+            ui_print "-> Selected Latest eBPF"
+            patch_cmdline "init.is_legacy_ebpf" "init.is_legacy_ebpf=false"
+            ;;
+    esac
+}
+
+choose_ebpf;
+# ==========================================
+
 write_boot;
 ## end boot install
